@@ -24,9 +24,9 @@ class OverlayService : Service() {
     companion object {
         private const val CHANNEL_ID = "merle_collie_channel"
         private const val NOTIFICATION_ID = 1101
-        // 悬浮球大小：像素小鲸鱼（比应用图标略大，更好看清）
-        private const val PET_WIDTH_DP = 84
-        private const val PET_HEIGHT_DP = 84
+        // 悬浮球大小：像素小鲸鱼（放大到接近参考图432px，醒目）
+        private const val PET_WIDTH_DP = 165
+        private const val PET_HEIGHT_DP = 165
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
