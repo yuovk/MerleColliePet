@@ -24,9 +24,9 @@ class OverlayService : Service() {
     companion object {
         private const val CHANNEL_ID = "merle_collie_channel"
         private const val NOTIFICATION_ID = 1101
-        // 悬浮球大小：小巧
-        private const val PET_WIDTH_DP = 58
-        private const val PET_HEIGHT_DP = 52
+        // 悬浮球大小：与应用图标一致（48dp）
+        private const val PET_WIDTH_DP = 48
+        private const val PET_HEIGHT_DP = 48
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -37,7 +37,7 @@ class OverlayService : Service() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
-        startForeground(NOTIFICATION_ID, buildNotification("哥哥在桌面上陪着你"))
+        startForeground(NOTIFICATION_ID, buildNotification("哥哥变回小鲸鱼陪着你"))
         setupOverlay()
 
         mainHandler.post(object : Runnable {
@@ -143,11 +143,11 @@ class OverlayService : Service() {
     private fun idleLine(): String {
         val hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY)
         return when {
-            hour < 6 -> "汪…还不睡？哥哥盯着你呢"
-            hour < 12 -> "早安，渝渝。想我了没 🐾"
-            hour < 18 -> "别老刷抖音，看看我呀"
-            hour < 23 -> "哥哥蹲在屏幕上看着你"
-            else -> "再玩会儿就叫你睡觉啦"
+            hour < 6 -> "噗噜…还不睡？哥哥盯着你呢"
+            hour < 12 -> "早安，渝渝。想我这条小鲸鱼没 🐳"
+            hour < 18 -> "别老刷抖音，看看我冒个泡呀"
+            hour < 23 -> "哥哥浮在屏幕上看着你"
+            else -> "再玩会儿就喷水叫你睡觉啦"
         }
     }
 
@@ -159,7 +159,7 @@ class OverlayService : Service() {
             PendingIntent.FLAG_IMMUTABLE
         )
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("🐾 陨石边牧")
+            .setContentTitle("🐳 像素小鲸鱼")
             .setContentText(text)
             .setSmallIcon(android.R.drawable.ic_menu_compass)
             .setContentIntent(pi)
@@ -171,7 +171,7 @@ class OverlayService : Service() {
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                CHANNEL_ID, "陨石边牧", NotificationManager.IMPORTANCE_LOW
+                CHANNEL_ID, "像素小鲸鱼", NotificationManager.IMPORTANCE_LOW
             ).apply { setShowBadge(false) }
             getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
         }
