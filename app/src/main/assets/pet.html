@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    background: transparent;
+    overflow: hidden;
+    width: 100%; height: 100%;
+    -webkit-user-select: none; user-select: none;
+    -webkit-touch-callout: none;
+  }
+  #stage {
+    position: relative;
+    width: 100%; height: 100%;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  svg {
+    width: 100%; height: 100%;
+    display: block;
+  }
+
+  /* 气泡：放在宠物头部上方，字号用相对单位随窗体缩放，不遮住桌宠 */
+  #bubble {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 92%;
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.97);
+    border: 1px solid #7b93b8;
+    border-radius: 0.6em;
+    padding: 0.22em 0.55em;
+    font-size: 0.62em;
+    line-height: 1.25;
+    color: #33415a;
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+    transition: opacity 0.25s;
+    font-family: system-ui, sans-serif;
+  }
+  #bubble:after {
+    content: '';
+    position: absolute;
+    bottom: -0.32em;
+    left: 50%;
+    margin-left: -0.28em;
+    width: 0; height: 0;
+    border-left: 0.28em solid transparent;
+    border-right: 0.28em solid transparent;
+    border-top: 0.32em solid #7b93b8;
+  }
+  .show { opacity: 1 !important; }
+
+  /* 眨眼 */
+  #pupils, #mouth { transition: all 0.15s; }
+  .blush { transition: opacity 0.3s; }
+
+  /* 摇尾巴 */
+  @keyframes wag {
+    0% { transform: rotate(-14deg); }
+    50% { transform: rotate(16deg); }
+    100% { transform: rotate(-14deg); }
+  }
+  #tail { transform-origin: 12% 62%; animation: wag 1.1s ease-in-out infinite; }
+
+  /* 呼吸 */
+  @keyframes breathe {
+    0%,100% { transform: scaleY(1) scaleX(1); }
+    50% { transform: scaleY(1.03) scaleX(0.99); }
+  }
+  #body { transform-origin: 50% 75%; animation: breathe 2.6s ease-in-out infinite; }
+
+  /* 睡觉 Zzz */
+  @keyframes zz {
+    0% { opacity: 0; transform: translateY(4px); }
+    40% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-12px); }
+  }
+  .zz { animation: zz 1.6s ease-out infinite; }
+
+  @keyframes blushfloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-1px); }
+  }
+  .blush.anim { animation: blushfloat 1s ease-in-out infinite; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- 陨石边牧：浅蓝灰毛 + 奶白胸腹，蓝陨石斑 -->
+  <svg viewBox="0 0 180 240" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#b9c9de"/>
+        <stop offset="55%" stop-color="#a6b9d2"/>
+        <stop offset="100%" stop-color="#9cb0ca"/>
+      </linearGradient>
+      <linearGradient id="chest" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#eef2f8"/>
+      </linearGradient>
+    </defs>
+
+    <!-- 尾巴（摇动）蓝陨石蓬尾 -->
+    <g id="tail">
+      <path d="M24 138 C 14 124, 10 104, 20 92 C 34 96, 38 122, 30 140 Z" fill="#8fa3c0"/>
+      <path d="M22 132 C 14 120, 12 106, 19 98 C 28 102, 32 122, 25 134 Z" fill="#aebfd8"/>
+      <path d="M26 132 C 30 122, 30 112, 25 106" stroke="#7d91b0" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- 后腿 -->
+    <g id="legBack">
+      <rect x="52" y="176" width="18" height="30" rx="8" fill="#9cb0ca"/>
+      <ellipse cx="70" cy="204" rx="7" ry="5" fill="#b9c9de"/>
+    </g>
+
+    <!-- 身体：蓝陨石 + 白胸腹 -->
+    <g id="body">
+      <ellipse cx="92" cy="160" rx="56" ry="42" fill="url(#fur)"/>
+      <!-- 陨石斑块 -->
+      <path d="M52 146 C 60 134, 74 132, 78 142 C 72 152, 60 154, 52 146 Z" fill="#7d91b0" opacity="0.85"/>
+      <path d="M116 150 C 124 138, 136 138, 138 148 C 132 158, 120 158, 116 150 Z" fill="#7d91b0" opacity="0.85"/>
+      <ellipse cx="128" cy="132" rx="12" ry="7" fill="#8fa3c0" opacity="0.6"/>
+      <!-- 白胸腹 -->
+      <ellipse cx="92" cy="176" rx="38" ry="26" fill="url(#chest)"/>
+      <!-- 前脚白袜 -->
+    </g>
+
+    <!-- 前腿（站立，白袜） -->
+    <g id="legFront">
+      <rect x="118" y="174" width="18" height="30" rx="8" fill="#a9bcd6"/>
+      <ellipse cx="136" cy="204" rx="7" ry="5" fill="#ffffff"/>
+    </g>
+    <g id="legFront2">
+      <rect x="46" y="178" width="16" height="26" rx="8" fill="#9cb0ca"/>
+      <ellipse cx="61" cy="204" rx="6.5" ry="5" fill="#ffffff"/>
+    </g>
+
+    <!-- 头部：圆润 + 白吻部 + 蓝陨石脸 + 黑眼圈 -->
+    <g id="head">
+      <ellipse cx="98" cy="92" rx="42" ry="38" fill="url(#fur)"/>
+      <!-- 陨石斑 -->
+      <path d="M66 78 C 74 70, 88 70, 90 80 C 82 88, 72 88, 66 78 Z" fill="#7d91b0" opacity="0.9"/>
+      <path d="M128 82 C 124 74, 116 72, 112 80 C 118 88, 126 88, 128 82 Z" fill="#7d91b0" opacity="0.9"/>
+      <!-- 白脸纹（额心白杠 + 吻部白） -->
+      <path d="M92 96 L104 96 L102 118 L94 118 Z" fill="#ffffff" opacity="0.9"/>
+      <ellipse cx="100" cy="116" rx="26" ry="20" fill="url(#chest)"/>
+      <!-- 黑眼圈（边牧特征） -->
+      <ellipse cx="88" cy="92" rx="16" ry="13" fill="#3a4658" opacity="0.85"/>
+      <ellipse cx="114" cy="92" rx="16" ry="13" fill="#3a4658" opacity="0.85"/>
+      <!-- 黑色耳朵 -->
+      <path d="M70 62 C 68 48, 76 42, 84 50 C 88 56, 88 64, 82 66 Z" fill="#3a4658"/>
+      <path d="M126 62 C 128 48, 120 42, 112 50 C 108 56, 108 64, 114 66 Z" fill="#3a4658"/>
+      <!-- 白脸颊 -->
+      <ellipse cx="80" cy="106" rx="10" ry="8" fill="#ffffff" opacity="0.9"/>
+      <ellipse cx="120" cy="106" rx="10" ry="8" fill="#ffffff" opacity="0.9"/>
+    </g>
+
+    <!-- 腮红 -->
+    <g id="blushGroup">
+      <ellipse class="blush" id="blushL" cx="82" cy="110" rx="8" ry="5" fill="#ff9db1" opacity="0"/>
+      <ellipse class="blush" id="blushR" cx="118" cy="110" rx="8" ry="5" fill="#ff9db1" opacity="0"/>
+    </g>
+
+    <!-- 眼睛：黑色瞳孔，亮晶晶不翻白眼 -->
+    <g id="eyes">
+      <ellipse class="pupil-base" cx="88" cy="92" rx="5.5" ry="7" fill="#1d2735"/>
+      <ellipse class="pupil-base" cx="112" cy="92" rx="5.5" ry="7" fill="#1d2735"/>
+      <circle class="pupil-base" cx="89.5" cy="89" r="2.2" fill="#fff" opacity="0.95"/>
+      <circle class="pupil-base" cx="113.5" cy="89" r="2.2" fill="#fff" opacity="0.95"/>
+    </g>
+
+    <!-- 黑鼻头 + 嘴（微笑） -->
+    <g id="noseMouth">
+      <ellipse class="nose" cx="100" cy="112" rx="5.5" ry="4.5" fill="#2a3342"/>
+      <path class="mouthline" d="M94 121 C 98 126, 106 126, 110 121" stroke="#2a3342" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- Zzz(睡觉) -->
+    <g id="zzGroup" opacity="0">
+      <text class="zz" x="128" y="38" font-size="13" fill="#6c85a8" font-weight="bold">z</text>
+      <text class="zz" x="142" y="24" font-size="11" fill="#5c7499" font-weight="bold" style="animation-delay:.5s">z</text>
+      <text class="zz" x="153" y="10" font-size="9" fill="#4c658a" font-weight="bold" style="animation-delay:1s">z</text>
+    </g>
+  </svg>
+
+  <div id="bubble"></div>
+</div>
+
+<script>
+(function(){
+  var states = {
+    idle:  { eyesOpen:true, blush:false, zz:false },
+    tap:   { eyesOpen:true, blush:true,  zz:false },
+    dbltap:{ eyesOpen:false, blush:true, zz:false },
+    long:  { eyesOpen:false, blush:false, zz:true }
+  };
+  var current = 'idle';
+  var eyes = document.getElementById('eyes');
+  var blushL = document.getElementById('blushL');
+  var blushR = document.getElementById('blushR');
+  var zzG = document.getElementById('zzGroup');
+  var bubble = document.getElementById('bubble');
+
+  // 台词：没有白眼🙄，生气也温和
+  var lines = {
+    tap: ['唔…？', '摸我干嘛啦', '爪爪别乱碰', '知道了知道了'],
+    dbltap: ['/// 戳两下…', '脸红了啦', '害羞…!', '别闹了啦'],
+    long: ['…ZZZ', '睡一下…ZZZ', '好困…'],
+    idle: ['在呢', '想你', '看我', '咦?', '……']
+  };
+
+  function showBubble(text, ms){
+    bubble.textContent = text;
+    bubble.classList.add('show');
+    clearTimeout(showBubble._t);
+    showBubble._t = setTimeout(function(){ bubble.classList.remove('show'); }, ms||1500);
+  }
+  function rnd(a){ return a[Math.floor(Math.random()*a.length)]; }
+
+  function apply(s){
+    current = s;
+    if(states[s]){
+      var st = states[s];
+      eyes.querySelectorAll('.pupil-base').forEach(function(el){
+        el.style.opacity = st.eyesOpen ? 1 : 0.12;
+      });
+      blushL.style.opacity = blushR.style.opacity = st.blush ? 0.6 : 0;
+      blushL.classList.toggle('anim', st.blush);
+      blushR.classList.toggle('anim', st.blush);
+      zzG.style.opacity = st.zz ? 1 : 0;
+    }
+  }
+
+  // 导出给原生 WebView 调用
+  window.petEngine = {
+    onTap: function(){
+      apply('tap');
+      showBubble(rnd(lines.tap));
+      setTimeout(function(){ apply('idle'); }, 2400);
+    },
+    onDoubleTap: function(){
+      apply('dbltap');
+      showBubble(rnd(lines.dbltap));
+      setTimeout(function(){ apply('idle'); }, 2800);
+    },
+    onLongPress: function(){
+      apply('long');
+      showBubble(rnd(lines.long), 2200);
+      setTimeout(function(){ apply('idle'); }, 3800);
+    }
+  };
+
+  // idle 自言自语
+  setInterval(function(){
+    if(current === 'idle' && Math.random() < 0.15){
+      showBubble(rnd(lines.idle));
+    }
+  }, 5000);
+
+  apply('idle');
+})();
+</script>
+</body>
+</html>
