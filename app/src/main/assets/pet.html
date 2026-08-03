@@ -28,62 +28,63 @@
 <div id="pet">
   <div class="bubble" id="bubble"></div>
   <svg class="svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
-    <!-- 像素小鲸鱼：浅蓝白像素块堆叠 -->
+    <!-- 像素小鲸鱼：正面可爱朝向，浅蓝白像素块堆叠 -->
     <g style="transform-origin: 80px 130px; animation: breathe 2.6s ease-in-out infinite;">
-      <!-- 背鳍 dorsal -->
-      <rect x="60" y="34" width="6" height="8" fill="#9fc3e8"/>
-      <rect x="56" y="38" width="8" height="6" fill="#a9c9ec"/>
-      <!-- 尾鳍 tail（带摇尾动画） -->
-      <g id="tail" style="transform-origin: 128px 92px; animation: wag 1.1s ease-in-out infinite;">
-        <rect x="124" y="92" width="14" height="6" fill="#b6d2ef"/>
-        <rect x="132" y="86" width="6" height="6" fill="#9fc3e8"/>
-        <rect x="132" y="98" width="6" height="6" fill="#9fc3e8"/>
+      <!-- 背鳍 dorsal（顶部中央） -->
+      <rect x="74" y="26" width="6" height="8" fill="#9fc3e8"/>
+      <rect x="70" y="32" width="8" height="6" fill="#a9c9ec"/>
+      <rect x="82" y="32" width="8" height="6" fill="#a9c9ec"/>
+      <!-- 身体主体（正面圆润） -->
+      <rect x="58" y="42" width="44" height="8" fill="#a9c9ec"/>
+      <rect x="52" y="50" width="56" height="8" fill="#8fb6e0"/>
+      <rect x="48" y="58" width="64" height="8" fill="#8fb6e0"/>
+      <rect x="44" y="66" width="72" height="10" fill="#4e79b8"/>
+      <rect x="42" y="76" width="76" height="10" fill="#4e79b8"/>
+      <rect x="42" y="86" width="76" height="10" fill="#9fc3e8"/>
+      <rect x="46" y="96" width="68" height="10" fill="#a9c9ec"/>
+      <rect x="54" y="106" width="52" height="8" fill="#b6d2ef"/>
+      <!-- 白肚皮 belly（正面中央） -->
+      <rect x="58" y="82" width="44" height="12" fill="#f2f7fd"/>
+      <rect x="62" y="94" width="36" height="10" fill="#f2f7fd"/>
+      <rect x="68" y="104" width="24" height="8" fill="#f2f7fd"/>
+      <!-- 胸鳍 fin（左右对称） -->
+      <rect x="28" y="78" width="12" height="6" fill="#e4effa"/>
+      <rect x="26" y="84" width="10" height="6" fill="#e4effa"/>
+      <rect x="120" y="78" width="12" height="6" fill="#e4effa"/>
+      <rect x="124" y="84" width="10" height="6" fill="#e4effa"/>
+      <!-- 左侧深蓝像素眼 + 眼神光 -->
+      <rect x="54" y="66" width="9" height="9" fill="#2a3a5c"/>
+      <rect x="56" y="67" width="3" height="3" fill="#ffffff"/>
+      <!-- 右侧深蓝像素眼 + 眼神光 -->
+      <rect x="97" y="66" width="9" height="9" fill="#2a3a5c"/>
+      <rect x="99" y="67" width="3" height="3" fill="#ffffff"/>
+      <!-- 像素微笑（中央下方） -->
+      <rect x="76" y="78" width="4" height="2" fill="#6e9cd0"/>
+      <rect x="80" y="80" width="4" height="2" fill="#6e9cd0"/>
+      <!-- 浅蓝水点装饰（左右脸颊） -->
+      <rect x="44" y="52" width="4" height="4" fill="#cfe0f5"/>
+      <rect x="112" y="52" width="4" height="4" fill="#cfe0f5"/>
+      <!-- 喷水 spout（头顶中央喷水孔） -->
+      <g id="spout" style="opacity:0; transform-origin: 80px 30px;">
+        <rect x="76" y="18" width="6" height="8" fill="#bfd6f2"/>
+        <rect x="70" y="12" width="4" height="6" fill="#d4e6fa"/>
+        <rect x="76" y="8" width="4" height="6" fill="#d4e6fa"/>
+        <rect x="82" y="12" width="4" height="6" fill="#d4e6fa"/>
       </g>
-      <!-- 身体主体：流线型浅蓝像素块 -->
-      <rect x="52" y="46" width="16" height="8" fill="#a9c9ec"/>
-      <rect x="44" y="54" width="22" height="8" fill="#8fb6e0"/>
-      <rect x="38" y="62" width="28" height="8" fill="#8fb6e0"/>
-      <rect x="34" y="70" width="34" height="10" fill="#4e79b8"/>
-      <rect x="32" y="80" width="40" height="10" fill="#4e79b8"/>
-      <rect x="34" y="90" width="42" height="10" fill="#9fc3e8"/>
-      <rect x="40" y="100" width="40" height="8" fill="#a9c9ec"/>
-      <!-- 白肚皮 belly -->
-      <rect x="50" y="90" width="26" height="12" fill="#f2f7fd"/>
-      <rect x="56" y="100" width="14" height="8" fill="#f2f7fd"/>
-      <!-- 胸鳍 fin -->
-      <rect x="96" y="84" width="14" height="6" fill="#e4effa"/>
-      <rect x="104" y="90" width="8" height="6" fill="#e4effa"/>
-      <!-- 深蓝像素眼 + 眼神光 -->
-      <rect x="62" y="68" width="8" height="8" fill="#2a3a5c"/>
-      <rect x="64" y="69" width="3" height="3" fill="#ffffff"/>
-      <!-- 像素微笑 -->
-      <rect x="68" y="78" width="4" height="2" fill="#6e9cd0"/>
-      <rect x="72" y="80" width="4" height="2" fill="#6e9cd0"/>
-      <!-- 浅蓝水点装饰 -->
-      <rect x="42" y="52" width="4" height="4" fill="#cfe0f5"/>
-      <rect x="108" y="60" width="4" height="4" fill="#cfe0f5"/>
-      <!-- 喷水 spout -->
-      <g id="spout" style="opacity:0;">
-        <rect x="76" y="26" width="6" height="8" fill="#bfd6f2"/>
-        <rect x="70" y="20" width="4" height="6" fill="#d4e6fa"/>
-        <rect x="76" y="18" width="4" height="6" fill="#d4e6fa"/>
-        <rect x="82" y="20" width="4" height="6" fill="#d4e6fa"/>
+      <g id="spout2" style="opacity:0; transform-origin: 80px 30px;">
+        <rect x="72" y="14" width="5" height="8" fill="#bfd6f2"/>
+        <rect x="80" y="12" width="5" height="8" fill="#d4e6fa"/>
       </g>
-      <g id="spout2" style="opacity:0;">
-        <rect x="72" y="24" width="5" height="8" fill="#bfd6f2"/>
-        <rect x="80" y="22" width="5" height="8" fill="#d4e6fa"/>
-      </g>
-      <!-- 睡眠 Zzz -->
+      <!-- 睡眠 Zzz（右侧飘出） -->
       <g id="zzz" opacity="0">
-        <text x="96" y="52" font-size="10" fill="#6c9fd0" font-family="monospace">Z</text>
-        <text x="104" y="62" font-size="12" fill="#6c9fd0" font-family="monospace">z</text>
+        <text x="108" y="50" font-size="10" fill="#6c9fd0" font-family="monospace">Z</text>
+        <text x="116" y="60" font-size="12" fill="#6c9fd0" font-family="monospace">z</text>
       </g>
     </g>
   </svg>
   <style>
     @keyframes breathe { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(1.03)} }
-    @keyframes wag { 0%,100%{transform:rotate(0)} 50%{transform:rotate(10deg)} }
-    @keyframes spoutUp { 0%{transform:translateY(0);opacity:1} 100%{transform:translateY(-10px);opacity:0} }
+    @keyframes spoutUp { 0%{transform:translateY(0);opacity:1} 100%{transform:translateY(-16px);opacity:0} }
   </style>
 </div>
 <script>
